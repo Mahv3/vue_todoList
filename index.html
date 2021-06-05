@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Vue</title>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <h1>
+            <button @click="purge">Purge</button> My Todos
+            <span class="info">({{remaining.length}}/{{todos.length}})</span>
+        </h1>
+
+        <ul>
+            <li v-for="(todo,index) in todos">
+                <!-- check-boxからプルダウンに変更したい -->
+                <select v-model="todo.stateIs">
+            <!-- 保存時にインデントが崩れてしまう-->
+
+            <!-- doneがundefinedだとエラーが出る -->
+            <option value="{{todos.stateIs.done}}"
+              >{{todos.stateIs.done}}</option
+            >
+            <option value="{{todos.stateIs.yet}}">{{todos.stateIs.yet}}</option>
+            <option value="{{todos.stateIs.doing}}"
+              >{{todos.stateIs.doing}}</option
+            >
+          </select>
+                <span>{{todo.title}}</span>
+                <span @click=" deleteItem(index) " class="command ">[×]</span>
+            </li>
+            <li v-show="!todos.length">Nothing to do,Yeah</li>
+        </ul>
+
+        <form @submit.prevent="addItem ">
+            <input type="text" v-model="newItem" />
+            <input type="submit" value="Add" />
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12 "></script>
+    <script src="js/main.js "></script>
+</body>
+
+</html>
